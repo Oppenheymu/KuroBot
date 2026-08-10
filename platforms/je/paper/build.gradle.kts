@@ -1,0 +1,34 @@
+// :paper —— Paper 服务端适配（薄壳的业务桥接层）
+// 依赖 :core（纯逻辑）+ Paper API（compileOnly）
+// 产物：shadowJar fat JAR（内含 :core + embedded 资源）
+
+plugins {
+    id("com.gradleup.shadow")
+}
+
+dependencies {
+    implementation(project(":core"))
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+}
+
+// 苛刻度：Spotless(Palantir)（ADR-011）
+spotless {
+    java {
+        palantirJavaFormat()
+        target("src/**/*.java")
+    }
+}
+
+// 全链路构建（AGENTS.md 构建顺序）：TS 构建 → tools/embed → shadowJar
+tasks.shadowJar {
+    archiveFileName.set("kurobot-${project.version}.jar")
+    archiveClassifier.set("")
+    manifest {
+        attributes("Implementation-Title" to "KuroBot", "Implementation-Version" to project.version)
+    }
+}
+
+// 本地全链路构建（与根 pnpm build:jar 对应）
+tasks.register("kurobotBuild") {
+    dependsOn(tasks.shadowJar)
+}

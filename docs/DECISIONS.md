@@ -69,7 +69,7 @@
 
 ## ADR-013 测试栈（2026-08-10）
 
-- **结论**：TS 侧 **vitest** 一统（protocol/core/koishi/embedded），coverage 用 v8 provider（core 设阈值，壳层放宽）；Java 侧 JUnit 5。**fast-check（property-based）列为二期 backlog**。
+- **结论**：TS 侧 **vitest** 一统（protocol/core/embedded），coverage 用 v8 provider（core 设阈值，壳层放宽）；Java 侧 JUnit 5。**fast-check（property-based）列为二期 backlog**。
 - **理由**：开发者熟练 vitest；property-based 对协议编解码/握手状态机有价值但不阻塞一期。
 
 ## ADR-014 嵌入式打包沿用 Napuketto 许可证方案（2026-08-10）

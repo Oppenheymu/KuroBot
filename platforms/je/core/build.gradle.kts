@@ -1,0 +1,19 @@
+// :core —— 薄壳核心逻辑（IPC 客户端 / Node 子进程管理 / JSON-lines 解析）
+// 平台无关：零 Bukkit API，可独立测试（类似 TS 侧 bridge/core）
+// 依赖：Jackson（JSON-lines IPC 解析）
+
+dependencies {
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.0")
+
+    testImplementation(platform("org.junit:junit-bom:5.11.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+// 苛刻度：Spotless(Palantir)（ADR-011）
+spotless {
+    java {
+        palantirJavaFormat()
+        target("src/**/*.java")
+    }
+}

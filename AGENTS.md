@@ -20,7 +20,7 @@ KuroBot：MC 服务器 ↔ 社交平台群服互通插件。Paper JAR + 内嵌 N
    bridge/protocol（@kurobot/protocol）   zod 纯 schema，零框架依赖
    bridge/core    依赖 protocol；零 Node API、零框架
    bridge/embedded  依赖 core + protocol；esbuild 单文件
-   platforms/je   Paper API(compileOnly) + Jackson（JSON-lines IPC 解析）；不含协议逻辑
+   platforms/je   Gradle 多模块：:core（IPC/进程管理，零 Bukkit API）+ :paper（Paper 适配，compileOnly）；不含协议逻辑
    platforms/be   LSE TS（编译为 JS），复用 bridge/core（QuickJS 可跑）
    ```
 

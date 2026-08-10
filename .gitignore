@@ -16,13 +16,13 @@ pnpm-debug.log*
 # test coverage
 coverage/
 
-# Java / Gradle（platforms/je）
-platforms/je/build/
+# Java / Gradle（platforms/je 多模块：core/、paper/ 等）
+platforms/je/**/build/
 platforms/je/.gradle/
 platforms/je/out/
 
 # 嵌入式打包产物（构建期生成，gitignore）
-platforms/je/src/main/resources/embedded/
+platforms/je/paper/src/main/resources/embedded/
 
 # 运行产物（沙盒）
 sandbox/
