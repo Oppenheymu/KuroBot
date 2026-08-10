@@ -99,11 +99,13 @@ kurobot/
 │   └── protocol/            # 协议说明文档（draft 等）
 │       └── draft-v0.1.md    # 协议草案说明（schema 源见 bridge/protocol）
 ├── platforms/
-│   ├── je/                  # Java 交付物根（Gradle 多模块：一个服务端 = 一个模块）
+│   ├── je/                  # Java 交付物根（Gradle 多模块：一个服务端 = 一个模块，ADR-019）
 │   │   ├── build.gradle.kts / settings.gradle.kts
 │   │   ├── core/            # 薄壳核心（IPC 客户端 / 进程管理，零 Bukkit API）
-│   │   └── paper/           # Paper 适配（依赖 :core，产出 shadowJar）
-│   │       └── src/main/resources/embedded/   # 构建期生成（gitignore）
+│   │   ├── paper/           # Paper 适配（依赖 :core，产出 shadowJar）
+│   │   │   └── src/main/resources/embedded/   # 构建期生成（gitignore）
+│   │   ├── fabric/          # 预留：Fabric mod 适配（依赖 :core）
+│   │   └── velocity/        # 预留：Velocity 代理适配（依赖 :core）
 │   └── be/                  # LeviLamina LSE（TS → 编译 JS），复用 bridge/core
 ├── bridge/
 │   ├── protocol/            # @kurobot/protocol：zod schema SSOT
@@ -117,7 +119,7 @@ kurobot/
 
 > koishi-plugin-kurobot（external 形态官方对端）在独立仓库开发，不在本目录树内。
 
-未来扩展：`platforms/` 命名空间已为 `be/` 预留；fabric/velocity 在 `platforms/je/` 内**新增 Gradle 模块**（如 `paper/` 旁加 `fabric/`），共享 `:core` 薄壳核心。
+未来扩展：`platforms/` 命名空间已为 `be/` 预留；`platforms/je/` 已含 fabric/velocity 预留模块（ADR-019），实现时接入对应服务端 API 即可，共享 `:core`。
 
 ## 8. 技术栈矩阵
 

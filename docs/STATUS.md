@@ -30,6 +30,7 @@
 | 16 | 运行时不用 Bun | ADR-016 |
 | 17 | 剔除 CI/CD，本地门禁（lefthook + pnpm check） | ADR-017 |
 | 18 | koishi 插件独立仓库（不在本仓库内） | ADR-018 |
+| 19 | platforms/je 多模块（:core + 各服务端模块，含 fabric/velocity 预留） | ADR-019 |
 
 ## 待定事项
 
