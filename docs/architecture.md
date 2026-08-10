@@ -132,7 +132,7 @@ kurobot/
 **苛刻度（对齐 NapukettoQQ）**：
 - **TS 侧**：直接沿用 Napuketto 的 biome.json + tsconfig（`erasableSyntaxOnly`、`exactOptionalPropertyTypes`、`noUncheckedIndexedAccess`、`noFloatingPromises`、`noExcessiveCognitiveComplexity(15)`、`useNamingConvention`、`useErrorMessage`、organizeImports 全保留）。一份 biome 配置管 bridge/ + tools/ + platforms/be。
 - **Java 侧（第一版）**：`-Xlint:all -Werror` + Spotless(Palantir) + JUnit 5 + JaCoCo 存在性门禁（行 ≥60%）。**Error Prone / NullAway 第一版不上**（ADR-011），薄壳定型后再评估。
-- **协议防漂移门禁**：消息类型只能 import `@kurobot/protocol`（lint 规则强制）；改 schema 不更新消费方 → CI 红。
+- **协议防漂移门禁**：消息类型只能 import `@kurobot/protocol`（lint 规则强制）；改 schema 不更新消费方 → `pnpm check` 红。
 
 ## 9. 嵌入式打包要点（沿用 Napuketto 许可证方案）
 

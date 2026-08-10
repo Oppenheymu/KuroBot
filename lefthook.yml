@@ -1,14 +1,13 @@
 # lefthook 配置：pre-commit 检查
 # 安装：pnpm dlx lefthook install（postinstall 会自动装，见 package.json）
+#
+# 注意：不用 {staged_files} 展开（Windows + pnpm 转义有坑，曾导致 hook 卡死）；
+# 直接跑根脚本，本规模全量检查开销可忽略（~1s），可靠性优先。
 
 pre-commit:
     parallel: true
     commands:
-        biome:
-            glob: "*.{ts,tsx,mts,cts,js,mjs,cjs,json}"
-            run: pnpm biome check --no-errors-on-unmatched {staged_files}
-        typecheck:
-            run: pnpm tsc --noEmit
+        check:
+            run: pnpm check
         test:
-            glob: "*.{ts,tsx,mts,cts}"
-            run: pnpm vitest run --changed
+            run: pnpm test

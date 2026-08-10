@@ -93,3 +93,10 @@
   3. **嵌入式运行时**打进 JAR 分发，Node 体积/兼容性经过验证；Bun 的 Windows 支持仍非一等公民。
   4. LSE 是 **QuickJS**——`bridge/core` 平台无关（ADR-007）已经保证了跨端，Bun 改变不了这一点，也没有收益。
 - **Bun 的合理用途**（本项目不需要）：纯工具脚本 / dev 服务器——pnpm + Node 已满足。
+
+## ADR-017 剔除 CI/CD（2026-08-11）
+
+- **背景**：开发者从未使用过 CI/CD；单人开发、本地命令（`pnpm check` / `pnpm test`）与 CI 内容完全一致。
+- **结论**：**删除 `.github/workflows/ci.yml`**，暂不引入 CI/CD；质量门禁由本地 lefthook（pre-commit）+ `pnpm check` 承担。
+- **理由**：单人单机开发，CI 只是"多一道自动化保险"；协议防漂移门禁（ADR-008 的 lint 规则）本地同样生效。成本不为零（写一次不用管，但出了故障要排），收益当前不明显。
+- **回退条件**：多人协作 / 开源贡献者介入 / 需要干净机器构建验证时，按 ADR-001 的构建顺序恢复（TS 构建 → tools/embed → gradle shadowJar）。

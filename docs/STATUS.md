@@ -6,8 +6,7 @@
 
 **设计已定稿**（见 `architecture.md` + `DECISIONS.md`），仓库为空骨架，尚未开始代码。
 
-- 已建：`readme.md`、`AGENTS.md`、`docs/architecture.md`、`docs/DECISIONS.md`、`docs/STATUS.md`、`docs/protocol/draft-v0.1.md`。
-- 未建：任何源代码、配置文件（biome/tsconfig/package.json 等）、CI。
+- 已建：`readme.md`、`AGENTS.md`、`docs/architecture.md`、`docs/DECISIONS.md`、`docs/STATUS.md`、`docs/protocol/draft-v0.1.md`、仓库骨架（biome/tsconfig/package.json 等）、`bridge/protocol` 包。
 
 ## 关键决策点（已拍板，勿再翻烧饼）
 
@@ -29,6 +28,7 @@
 | 14 | 嵌入式打包沿用 Napuketto 许可证方案 | ADR-014 |
 | 15 | 工具链升级：Node 26 + Java 25（target 21） | ADR-015 |
 | 16 | 运行时不用 Bun | ADR-016 |
+| 17 | 剔除 CI/CD，本地门禁（lefthook + pnpm check） | ADR-017 |
 
 ## 待定事项
 

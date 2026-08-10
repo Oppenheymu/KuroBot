@@ -40,7 +40,7 @@ pnpm -r build           # TS 全量构建（tsdown / esbuild）
 pnpm build:jar          # 全链路：TS 构建 → tools/embed 打包 → gradle shadowJar
 ```
 
-**构建顺序（硬约束）**：`pnpm -r build`（bridge/embedded 产物）→ `tools/embed` 拷入 `platforms/je/src/main/resources/embedded/` → `gradle shadowJar`。CI 用 job 依赖保证；本地 `pnpm build:jar` 链式执行。
+**构建顺序（硬约束）**：`pnpm -r build`（bridge/embedded 产物）→ `tools/embed` 拷入 `platforms/je/src/main/resources/embedded/` → `gradle shadowJar`。本地 `pnpm build:jar` 链式执行。
 
 ## 代码风格（biome 已强制，手动也须遵守）
 
