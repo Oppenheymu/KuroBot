@@ -1,7 +1,7 @@
 // KuroBot Java 多模块项目（root）
 // 一个服务端平台 = 一个模块，共享 :core（纯逻辑，零服务端 API）
 // 已实现：core（纯逻辑）+ paper（Paper 适配）
-// 预留：fabric（Fabric mod）/ velocity（Velocity 代理）
+// 预留：fabric（Fabric mod）/ velocity（Velocity 代理）/ nukkit（Nukkit，BE 客户端但 Java 技术栈）
 rootProject.name = "kurobot"
 
-include("core", "paper", "fabric", "velocity")
+include("core", "paper", "fabric", "velocity", "nukkit")

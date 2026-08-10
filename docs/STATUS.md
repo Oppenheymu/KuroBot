@@ -36,7 +36,8 @@
 
 - 协议 `kurobot-ws` 具体消息 schema 逐字段定稿（`bridge/protocol` 下一步细化，含 zod 源）。
 - 独立仓库 koishi-plugin-kurobot 的建立时间与 Koishi 版本基线（v4 稳定版）——JE 闭环后启动。
-- `platforms/be` 的启动时间表（JE 闭环后再排）。
+- `platforms/be`（LSE）骨架已建（2026-08-11），实现排期在 JE 闭环后。
+- `platforms/je` 的 fabric/velocity/nukkit 模块为预留骨架，接入对应服务端 API 后启用。
 
 ## 下一步实现顺序（推荐）
 

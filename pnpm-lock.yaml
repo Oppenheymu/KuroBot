@@ -268,6 +268,25 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(@vitest/coverage-v8@4.1.10)(vite@8.2.1(@types/node@26.2.0))
 
+  platforms/be:
+    dependencies:
+      '@kurobot/bridge-core':
+        specifier: workspace:*
+        version: link:../../bridge/core
+      '@kurobot/protocol':
+        specifier: workspace:*
+        version: link:../../bridge/protocol
+    devDependencies:
+      '@levimc-lse/types':
+        specifier: ^2.18.0
+        version: 2.18.7
+      esbuild:
+        specifier: ^0.25.0
+        version: 0.25.12
+      typescript:
+        specifier: ^7.0.2
+        version: 7.0.2
+
   tools/dev: {}
 
   tools/embed: {}
@@ -517,6 +536,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@levimc-lse/types@2.18.7':
+    resolution: {integrity: sha512-7+1VLBN6nnNdBudf11O5EabHqLMlKUZohCiphzLBfstkaIYl6WuF3aSbJWp+QnlIsD/146i9VKGyP6K9mG8/kg==}
 
   '@oxc-project/types@0.143.0':
     resolution: {integrity: sha512-u6JZdLBTLotrNC9Vd6vPssINdzcCzleKAH6EJKImQb7GtYvX5keN2dxkoK44stCc4tffE6QQRtZTXVSzsLUlWA==}
@@ -1549,6 +1571,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@levimc-lse/types@2.18.7': {}
 
   '@oxc-project/types@0.143.0': {}
 

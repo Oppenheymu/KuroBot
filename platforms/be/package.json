@@ -1,0 +1,20 @@
+{
+    "name": "kurobot",
+    "version": "0.1.0",
+    "description": "KuroBot LeviLamina（LSE）平台适配",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "build": "esbuild src/index.ts --bundle --format=iife --platform=neutral --target=es2020 --outfile=dist/index.js"
+    },
+    "dependencies": {
+        "@kurobot/bridge-core": "workspace:*",
+        "@kurobot/protocol": "workspace:*"
+    },
+    "devDependencies": {
+        "@levimc-lse/types": "^2.18.0",
+        "esbuild": "^0.25.0",
+        "typescript": "^7.0.2"
+    },
+    "license": "MIT"
+}

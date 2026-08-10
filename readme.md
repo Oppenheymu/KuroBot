@@ -22,7 +22,8 @@ kurobot（Paper JAR，Java 薄壳）
 ## 仓库结构
 
 ```
-├─ platforms/je/     # Paper 插件（Java 薄壳，Gradle 多模块：core + paper）
+├─ platforms/je/     # Java 服务端适配（Gradle 多模块：core + paper + 预留 fabric/velocity/nukkit）
+├─ platforms/be/     # LeviLamina LSE 平台适配（TS → JS，复用 bridge/core）
 ├─ bridge/
 │   ├── protocol/     # @kurobot/protocol：协议 zod schema SSOT
 │   ├── core/         # 业务核心 + 协议服务端（TS，平台无关）

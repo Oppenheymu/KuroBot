@@ -105,8 +105,11 @@ kurobot/
 │   │   ├── paper/           # Paper 适配（依赖 :core，产出 shadowJar）
 │   │   │   └── src/main/resources/embedded/   # 构建期生成（gitignore）
 │   │   ├── fabric/          # 预留：Fabric mod 适配（依赖 :core）
-│   │   └── velocity/        # 预留：Velocity 代理适配（依赖 :core）
-│   └── be/                  # LeviLamina LSE（TS → 编译 JS），复用 bridge/core
+│   │   ├── velocity/        # 预留：Velocity 代理适配（依赖 :core）
+│   │   └── nukkit/          # 预留：Nukkit 适配（BE 客户端，但 Java 技术栈，依赖 :core）
+│   └── be/                  # LeviLamina LSE 平台适配（TS → 编译 JS，复用 bridge/core）
+│       ├── package.json / tsconfig.json / plugin.json
+│       └── src/index.ts     # 入口（ll.registerPlugin + mc.listen）
 ├── bridge/
 │   ├── protocol/            # @kurobot/protocol：zod schema SSOT
 │   ├── core/                # @kurobot/bridge-core（平台无关）
@@ -119,7 +122,7 @@ kurobot/
 
 > koishi-plugin-kurobot（external 形态官方对端）在独立仓库开发，不在本目录树内。
 
-未来扩展：`platforms/` 命名空间已为 `be/` 预留；`platforms/je/` 已含 fabric/velocity 预留模块（ADR-019），实现时接入对应服务端 API 即可，共享 `:core`。
+未来扩展：`platforms/` 按**技术栈**划分（je=Java / be=LSE 脚本），不是客户端协议（JE/BE）——Nukkit 虽服务 BE 客户端但是 Java 技术栈，归 je（ADR-019）；`platforms/be` 只含 LeviLamina（LSE）一条路线（ADR-012），PocketMine-MP（PHP）工具链不匹配不做。
 
 ## 8. 技术栈矩阵
 
@@ -129,7 +132,7 @@ kurobot/
 | `bridge/core` | TS | zod；零框架零 Node API | tsdown | vitest（+ fast-check，二期） |
 | `bridge/embedded` | TS | 无框架 | esbuild 单文件 | 集成测试（起真 WS server） |
 | `platforms/je` | Java 21 字节码（工具链 25，target 21） | Paper API（compileOnly）+ Jackson | Gradle shadowJar | JUnit 5（IPC 编解码 + 进程生命周期） |
-| `platforms/be` | TS → JS | `@levimc-lse/types` | 编译后 LL 直载 | vitest |
+| `platforms/be` | TS → JS | `@levimc-lse/types` + `@kurobot/bridge-core` | esbuild 单文件（IIFE，target es2020） | vitest |
 | koishi-plugin-kurobot（独立仓库） | TS | Koishi v4 + `@kurobot/protocol` | Koishi 标准 | vitest + `@koishijs/plugin-mock` |
 
 **苛刻度（对齐 NapukettoQQ）**：
