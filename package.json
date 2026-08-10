@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json.schemastore.org/package.json",
+    "name": "kurobot",
+    "version": "0.1.0",
+    "description": "MC 服务器 ↔ 社交平台群服互通插件",
+    "type": "module",
+    "private": true,
+    "license": "MIT",
+    "keywords": [
+        "minecraft",
+        "paper",
+        "koishi",
+        "websocket",
+        "napukettoqq"
+    ],
+    "scripts": {
+        "build": "pnpm -r build",
+        "lint": "biome lint .",
+        "format": "biome format --write .",
+        "check": "biome check . && tsc --noEmit",
+        "fix": "biome check --write . && tsc --noEmit",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
+        "build:jar": "pnpm -r build && node tools/embed/run.mjs && cd platforms/je && ./gradlew shadowJar"
+    },
+    "devEngines": {
+        "packageManager": {
+            "name": "pnpm",
+            "version": "11.6.0",
+            "onFail": "download"
+        }
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.6",
+        "@types/node": "^26.1.2",
+        "@vitest/coverage-v8": "^4.1.10",
+        "lefthook": "^1.7.0",
+        "typescript": "^7.0.2",
+        "vitest": "^4.1.10"
+    }
+}

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    ts:
+        name: TypeScript（bridge + tools）
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 26
+                  cache: pnpm
+            - run: pnpm install --frozen-lockfile
+            - run: pnpm check
+            - run: pnpm test
+            - run: pnpm -r build
+
+    # TODO(platforms/je)：Java 薄壳构建 job
+    # 顺序硬约束：pnpm -r build → tools/embed → gradle shadowJar
+    # je:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - uses: actions/checkout@v4
+    #         - uses: actions/setup-java@v4
+    #           with:
+    #               distribution: temurin
+    #               java-version: "25"
+    #         - run: pnpm install --frozen-lockfile
+    #         - run: pnpm -r build
+    #         - run: cd platforms/je && ./gradlew shadowJar

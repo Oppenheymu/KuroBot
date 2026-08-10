@@ -27,6 +27,8 @@
 | 12 | LSE TS 化（@levimc-lse/types） | ADR-012 |
 | 13 | 测试栈 vitest + JUnit 5；fast-check 二期 | ADR-013 |
 | 14 | 嵌入式打包沿用 Napuketto 许可证方案 | ADR-014 |
+| 15 | 工具链升级：Node 26 + Java 25（target 21） | ADR-015 |
+| 16 | 运行时不用 Bun | ADR-016 |
 
 ## 待定事项
 
@@ -40,7 +42,7 @@
 0. 仓库骨架：biome.json / tsconfig.json / package.json / pnpm-workspace.yaml /
    vitest.config.ts / .editorconfig / mise.toml / lefthook.yml / CI 空跑
    （直接借鉴 NapukettoQQ 的配置体系）
-1. docs/protocol：zod schema SSOT（@kurobot/protocol 包）+ draft 说明同步
+1. bridge/protocol：zod schema SSOT（@kurobot/protocol 包）+ draft 说明同步
 2. bridge/core 最小闭环：connect → hello 握手 → 心跳 → chat 收发 → 重连
    （传输层抽象，先写 Node 实现，QuickJS 适配后续）
 3. platforms/je 薄壳：IPC 客户端 + 进程管理 + 事件/命令/权限桥接

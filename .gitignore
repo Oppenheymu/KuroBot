@@ -1,12 +1,5 @@
 # build outputs (monorepo)
-**/lib/
 **/dist/
-
-# local / temp
-external/
-
-# koishi 适配器 submodule（独立仓库，自带工具链；主仓库 biome/tsc 均跳过）
-apps/koishi-plugin-adapter/
 
 # dependencies
 node_modules/
@@ -17,27 +10,26 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# 全局配置文件（项目根 napuketto.toml，含账号/协议配置，不入库）
-napuketto.toml
-# 例外：create 脚手架的配置模板需入库（模板为 .tmpl 后缀，不匹配上方规则）
-!apps/create-napukettoqq/templates/*.tmpl
-
-# 数据根（项目根/.napuketto，账号目录/日志/缓存/QQ 数据，2026-08-08 起默认在项目根）
-.napuketto/
-
 # typescript build info
 **/*.tsbuildinfo
-
-# tool caches
-.eslintcache
 
 # test coverage
 coverage/
 
+# Java / Gradle（platforms/je）
+platforms/je/build/
+platforms/je/.gradle/
+platforms/je/out/
+
+# 嵌入式打包产物（构建期生成，gitignore）
+platforms/je/src/main/resources/embedded/
+
+# 运行产物（沙盒）
+sandbox/
+
 # OS / IDE
 .DS_Store
 .idea/
-.VSCodeCounter
 .vscode/*.local.json
 .vscode/*.code-workspace
 
@@ -49,16 +41,3 @@ coverage/
 
 # QQ 运行产物（登录态数据库，勿提交）
 *.db
-
-# 归档区
-archive/
-
-# AI提示词区域，这些文件实际上不应该被同步
-AGENTS.md
-docs/
-
-# 设计文档
-**/docs/design.md
-
-# token
-.npmrc

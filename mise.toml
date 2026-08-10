@@ -1,0 +1,6 @@
+# mise 统一运行时版本（全团队 / CI 一致）
+# 使用 mise 前先 `mise install` 安装工具
+
+[tools]
+node = "26"
+java = "25"

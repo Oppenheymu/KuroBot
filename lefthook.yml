@@ -1,0 +1,14 @@
+# lefthook 配置：pre-commit 检查
+# 安装：pnpm dlx lefthook install（postinstall 会自动装，见 package.json）
+
+pre-commit:
+    parallel: true
+    commands:
+        biome:
+            glob: "*.{ts,tsx,mts,cts,js,mjs,cjs,json}"
+            run: pnpm biome check --no-errors-on-unmatched {staged_files}
+        typecheck:
+            run: pnpm tsc --noEmit
+        test:
+            glob: "*.{ts,tsx,mts,cts}"
+            run: pnpm vitest run --changed

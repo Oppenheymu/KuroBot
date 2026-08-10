@@ -1,0 +1,29 @@
+{
+    "name": "@kurobot/protocol",
+    "version": "0.0.0",
+    "description": "kurobot-ws 协议 zod schema SSOT（唯一消息类型来源）",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.mts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.mts",
+            "import": "./dist/index.mjs"
+        }
+    },
+    "scripts": {
+        "build": "tsdown"
+    },
+    "dependencies": {
+        "zod": "^4.0.0"
+    },
+    "devDependencies": {
+        "tsdown": "^0.22.14",
+        "vitest": "^4.1.10"
+    },
+    "license": "MIT"
+}

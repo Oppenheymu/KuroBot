@@ -58,7 +58,7 @@ flowchart LR
 ## 4. 分层与依赖方向
 
 ```
-docs/protocol（@kurobot/protocol）   zod schema SSOT，零框架依赖
+bridge/protocol（@kurobot/protocol）   zod schema SSOT，零框架依赖
    ↑
 bridge/core     业务核心 + 协议服务端；零 Node API、零框架（平台无关）
    ↑                    ↑
@@ -96,8 +96,8 @@ kurobot/
 ├── biome.json / tsconfig.json / vitest.config.ts / .editorconfig   # 对齐 NapukettoQQ
 ├── docs/
 │   ├── architecture.md（本文）/ DECISIONS.md / STATUS.md
-│   └── protocol/            # 协议 SSOT（zod schema 源）
-│       └── draft-v0.1.md    # 协议草案说明
+│   └── protocol/            # 协议说明文档（draft 等）
+│       └── draft-v0.1.md    # 协议草案说明（schema 源见 bridge/protocol）
 ├── platforms/
 │   ├── je/                  # Java 交付物根（Gradle，薄壳）
 │   │   ├── build.gradle.kts / settings.gradle.kts
@@ -126,7 +126,7 @@ kurobot/
 | `bridge/core` | TS | zod；零框架零 Node API | tsdown | vitest（+ fast-check，二期） |
 | `bridge/koishi` | TS | Koishi v4 | Koishi 标准 | vitest + `@koishijs/plugin-mock` |
 | `bridge/embedded` | TS | 无框架 | esbuild 单文件 | 集成测试（起真 WS server） |
-| `platforms/je` | Java 21 | Paper API（compileOnly）+ Jackson | Gradle shadowJar | JUnit 5（IPC 编解码 + 进程生命周期） |
+| `platforms/je` | Java 21 字节码（工具链 25，target 21） | Paper API（compileOnly）+ Jackson | Gradle shadowJar | JUnit 5（IPC 编解码 + 进程生命周期） |
 | `platforms/be` | TS → JS | `@levimc-lse/types` | 编译后 LL 直载 | vitest |
 
 **苛刻度（对齐 NapukettoQQ）**：

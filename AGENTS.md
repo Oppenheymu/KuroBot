@@ -11,13 +11,13 @@ KuroBot：MC 服务器 ↔ 社交平台群服互通插件。Paper JAR + 内嵌 N
 1. **许可证 MIT，全自研**。参考 HuHoBot 只借鉴思路（业务在机器人侧、自定义 WS 协议、UUID 请求-响应），**不复制其代码**（GPL-3.0 与 MIT 不兼容）。闭源件（`wrapper.node`）运行期发现拷贝，不进 JAR。
 2. **业务核心在 Node（TS）侧**：绑定/白名单/权限/转发规则等业务逻辑属于 `bridge/core`，**Java 薄壳不做业务**，只做 Bukkit 桥接（事件/命令/权限/广播/executeCommand/进程管理）。
 3. **`bridge/core` 平台无关**：禁止使用任何 Node API（含 `ws`、`process`、`fs`、`pino`），传输层抽象为可注入接口（`WsServer/WsClient`、`Logger`），target ES2020，保证 QuickJS（LSE）也能跑。logger 通过依赖注入提供，不直接依赖具体实现。
-4. **协议 SSOT 唯一**：`docs/protocol/` 的 zod schema（`@kurobot/protocol`）是消息类型的唯一来源，**任何文件禁止手写消息类型**，必须 `import { ... } from "@kurobot/protocol"`。
+4. **协议 SSOT 唯一**：`bridge/protocol` 的 zod schema（`@kurobot/protocol`）是消息类型的唯一来源，**任何文件禁止手写消息类型**，必须 `import { ... } from "@kurobot/protocol"`。`docs/protocol/` 只放说明文档。
 5. **kurobot 永远是 WS 服务端角色**：对端主动连入；只认 `kurobot-ws` 协议，不关心对端是谁。embedded / external 只是打包差异，不是架构差异。
 6. **不采用 OneBot 11**：方向不匹配（OneBot 是「机器人→QQ」，群服互通是「服务器↔群」）。
 7. **依赖方向**（只允许向下依赖）：
 
    ```
-   docs/protocol（@kurobot/protocol）   zod 纯 schema，零框架依赖
+   bridge/protocol（@kurobot/protocol）   zod 纯 schema，零框架依赖
    bridge/core    依赖 protocol；零 Node API、零框架
    bridge/koishi  依赖 core + protocol；Koishi v4 壳层（宽类型在壳层收敛）
    bridge/embedded  依赖 core + protocol；esbuild 单文件，无 Koishi
@@ -61,6 +61,6 @@ pnpm build:jar          # 全链路：TS 构建 → tools/embed 打包 → gradl
 
 ## 环境
 
-- Node.js 22（ESM，`"type": "module"`）；TypeScript `NodeNext` 解析；包名统一 `@kurobot/*`。
-- Java 21 + Gradle（`platforms/je`，mise 统一版本）。
+- Node.js 26（ESM，`"type": "module"`）；TypeScript `NodeNext` 解析；包名统一 `@kurobot/*`。
+- Java 25 工具链 + Gradle（`platforms/je`，mise 统一版本）；**字节码 target 21**（兼容 Paper 服务端运行时，见 ADR-015）。
 - LSE（`platforms/be`）使用官方 TS 声明 `@levimc-lse/types` + `@levimc-lse/scaffold`，编译为 JS 后由 LeviLamina 加载。

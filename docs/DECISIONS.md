@@ -75,3 +75,21 @@
 ## ADR-014 嵌入式打包沿用 Napuketto 许可证方案（2026-08-10）
 
 - **结论**：`node.exe`（MIT）进 JAR；`wrapper.node`（腾讯闭源）不进 JAR，运行期从 QQ 安装目录发现拷贝；stub 闭源件走 release 附带；动态端口；stdin EOF 自杀 + PID 文件 + Watchdog + 崩溃兜底。
+
+## ADR-015 工具链升级：Node 26 + Java 25（2026-08-11）
+
+- **背景**：Node 26 已是 Current（2026-10 进 LTS，@types/node 26 已在用）；Java 25 为 LTS（2025-09 发布）。
+- **结论**：
+  - Node 升 **26**（开发/CI 运行时）。
+  - Java 工具链升 **25**，但 **Gradle 编译字节码 target 保持 21**（`-release 21`）——Paper 服务端运行时以 Java 21 为基线，target 21 保证插件在大多数服务端可加载，同时享受 25 工具链的编译期检查。
+- **不引入 Bun 运行时**（ADR-016）。
+
+## ADR-016 运行时不用 Bun（2026-08-11）
+
+- **结论**：**Bun 不能替换 Node 作为 kurobot 的运行时**。
+- **理由**：
+  1. **napukettoqq 协议端**依赖 `wrapper.node`（腾讯闭源 NAPI 模块），必须由 Node 进程 `process.dlopen` 加载——Bun 的 Node-API 兼容层未经验证，闭源模块是高风险赌注。
+  2. **Koishi 生态**绑定 Node（adapter 全家桶的 fs/net/worker 等边缘 API 在 Bun 下有差异，插件生态未验证）。
+  3. **嵌入式运行时**打进 JAR 分发，Node 体积/兼容性经过验证；Bun 的 Windows 支持仍非一等公民。
+  4. LSE 是 **QuickJS**——`bridge/core` 平台无关（ADR-007）已经保证了跨端，Bun 改变不了这一点，也没有收益。
+- **Bun 的合理用途**（本项目不需要）：纯工具脚本 / dev 服务器——pnpm + Node 已满足。

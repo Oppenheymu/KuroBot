@@ -1,0 +1,11 @@
+packages:
+  - "bridge/*"
+  - "tools/*"
+# pnpm 11 构建脚本审批：允许这些依赖运行 postinstall（esbuild/tsdown/lefthook 需要）
+allowBuilds:
+  esbuild: true
+  lefthook: true
+# pnpm 11 的 verify-deps-before-run 预检在 monorepo 场景可能触发不必要的 reinstall，
+# 关闭预检，按需手动 pnpm install（开发工作流不受影响）。
+settings:
+  verifyDepsBeforeRun: false
