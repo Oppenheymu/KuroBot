@@ -100,3 +100,10 @@
 - **结论**：**删除 `.github/workflows/ci.yml`**，暂不引入 CI/CD；质量门禁由本地 lefthook（pre-commit）+ `pnpm check` 承担。
 - **理由**：单人单机开发，CI 只是"多一道自动化保险"；协议防漂移门禁（ADR-008 的 lint 规则）本地同样生效。成本不为零（写一次不用管，但出了故障要排），收益当前不明显。
 - **回退条件**：多人协作 / 开源贡献者介入 / 需要干净机器构建验证时，按 ADR-001 的构建顺序恢复（TS 构建 → tools/embed → gradle shadowJar）。
+## ADR-018 koishi 插件独立仓库（2026-08-11）
+
+- **背景**：koishi-plugin-kurobot 作为 `kurobot-ws` 的官方参考对端（external 形态），需要**独立发布 npm** 供任意 Koishi 实例 load；它是公开契约的对外实现，外部团队可对照协议实现自己的对端，我们无需关心其实现。
+- **结论**：**`bridge/koishi` 从本仓库剔除**；koishi-plugin-kurobot 在**独立仓库**开发，依赖 `@kurobot/protocol` 的**发布版本**（非 workspace link）。
+- **理由**：与协议「公开契约、对端只认协议」的设计（ADR-003）一致；独立版本节奏（不随 kurobot 主仓库发版）；`@kurobot/protocol` 本身也需独立发布 npm 作为公开契约。
+- **连带**：本仓库 `bridge/` 只含 protocol/core/embedded；平台渲染（富文本/颜色码/长度收敛）全部发生在独立仓库，本仓库不涉及。
+- **回退条件**：如独立仓库维护成本过高（协议同步频繁），可改回子模块/workspace 方式，但协议包仍须独立发布。

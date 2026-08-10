@@ -62,15 +62,15 @@ bridge/protocol（@kurobot/protocol）   zod schema SSOT，零框架依赖
    ↑
 bridge/core     业务核心 + 协议服务端；零 Node API、零框架（平台无关）
    ↑                    ↑
-bridge/koishi   Koishi v4 壳层 + 平台渲染     bridge/embedded   esbuild 单文件，无 Koishi
-   ↑                    ↑
-（Koishi 生态 adapter：onebot/telegram/discord…）     platforms/je（Java 薄壳，JSON-lines IPC）
+bridge/embedded   esbuild 单文件（embedded 形态）     platforms/je（Java 薄壳，JSON-lines IPC）
 ```
+
+> **koishi-plugin-kurobot 是独立仓库**（ADR-018）：作为 `kurobot-ws` 的官方参考对端（external 形态），依赖 `@kurobot/protocol` 发布版本，不在本仓库内开发。
 
 **关键规则**：
 - `bridge/core` 禁止任何 Node API（`ws`/`process`/`fs`/`pino`），传输层与 logger 均为可注入接口，target ES2020 → **QuickJS（LSE）可跑**。
 - Java 薄壳**不含协议逻辑**，只做 Bukkit 桥接 + JSON-lines IPC + 子进程管理。
-- 平台渲染只出现在 `bridge/koishi`。
+- 平台渲染只出现在独立仓库 koishi-plugin-kurobot（本仓库不涉及）。
 
 ## 5. 进程模型与 IPC
 
@@ -84,7 +84,7 @@ bridge/koishi   Koishi v4 壳层 + 平台渲染     bridge/embedded   esbuild �
 |---|---|---|
 | 群↔服绑定、白名单、指令权限、转发规则 | **bridge/core（TS）** | 配置 JSON 放 `plugins/kurobot/`，Node 读写，服主改 JSON |
 | Bukkit API 桥接（事件/命令/权限/broadcast/executeCommand） | **Java 薄壳** | 模板化，~几百行 |
-| 消息渲染、平台格式收敛 | **koishi-plugin-kurobot（TS）** | 唯一认识平台的地方 |
+| 消息渲染、平台格式收敛 | **koishi-plugin-kurobot（独立仓库）** | 唯一认识平台的地方（ADR-018） |
 | 协议端（QQ 连接） | napukettoqq | 只做协议端，不做业务 |
 
 ## 7. 目录树
@@ -108,13 +108,14 @@ kurobot/
 ├── bridge/
 │   ├── protocol/            # @kurobot/protocol：zod schema SSOT
 │   ├── core/                # @kurobot/bridge-core（平台无关）
-│   ├── koishi/              # koishi-plugin-kurobot
 │   └── embedded/            # 嵌入式瘦身对端（esbuild 单文件，打进 JAR）
 ├── tools/
 │   ├── embed/               # 嵌入式打包（npm tarball + Node 运行时 + 产物拷入）
 │   └── dev/                 # 沙盒脚本
-└── sandbox/                 # 运行产物全 gitignore（Paper 服务端 / Koishi 实例）
+└── sandbox/                 # 运行产物全 gitignore（Paper 服务端等）
 ```
+
+> koishi-plugin-kurobot（external 形态官方对端）在独立仓库开发，不在本目录树内。
 
 未来扩展：`platforms/` 命名空间已为 `be/` 预留；fabric/velocity 在 `platforms/je/` 内加 Gradle 模块。
 
@@ -124,10 +125,10 @@ kurobot/
 |---|---|---|---|---|
 | `docs/protocol` | TS | zod（SSOT） | tsdown | vitest |
 | `bridge/core` | TS | zod；零框架零 Node API | tsdown | vitest（+ fast-check，二期） |
-| `bridge/koishi` | TS | Koishi v4 | Koishi 标准 | vitest + `@koishijs/plugin-mock` |
 | `bridge/embedded` | TS | 无框架 | esbuild 单文件 | 集成测试（起真 WS server） |
 | `platforms/je` | Java 21 字节码（工具链 25，target 21） | Paper API（compileOnly）+ Jackson | Gradle shadowJar | JUnit 5（IPC 编解码 + 进程生命周期） |
 | `platforms/be` | TS → JS | `@levimc-lse/types` | 编译后 LL 直载 | vitest |
+| koishi-plugin-kurobot（独立仓库） | TS | Koishi v4 + `@kurobot/protocol` | Koishi 标准 | vitest + `@koishijs/plugin-mock` |
 
 **苛刻度（对齐 NapukettoQQ）**：
 - **TS 侧**：直接沿用 Napuketto 的 biome.json + tsconfig（`erasableSyntaxOnly`、`exactOptionalPropertyTypes`、`noUncheckedIndexedAccess`、`noFloatingPromises`、`noExcessiveCognitiveComplexity(15)`、`useNamingConvention`、`useErrorMessage`、organizeImports 全保留）。一份 biome 配置管 bridge/ + tools/ + platforms/be。

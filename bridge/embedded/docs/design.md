@@ -13,7 +13,7 @@
 ## 与架构的关系（ADR-005 / ADR-006）
 
 - embedded / external 只是打包差异：本包 = "协议端在 JAR 里"的形态；
-  external 形态由 koishi-plugin-kurobot 承担，两者复用同一 core。
+  external 形态由独立仓库 koishi-plugin-kurobot 承担（ADR-018），两者复用同一 core。
 - `wrapper.node`（腾讯闭源）不进 JAR，运行期从 QQ 安装目录发现拷贝（ADR-014）。
 
 ## 目录规划

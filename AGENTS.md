@@ -19,14 +19,15 @@ KuroBot：MC 服务器 ↔ 社交平台群服互通插件。Paper JAR + 内嵌 N
    ```
    bridge/protocol（@kurobot/protocol）   zod 纯 schema，零框架依赖
    bridge/core    依赖 protocol；零 Node API、零框架
-   bridge/koishi  依赖 core + protocol；Koishi v4 壳层（宽类型在壳层收敛）
-   bridge/embedded  依赖 core + protocol；esbuild 单文件，无 Koishi
+   bridge/embedded  依赖 core + protocol；esbuild 单文件
    platforms/je   Paper API(compileOnly) + Jackson（JSON-lines IPC 解析）；不含协议逻辑
    platforms/be   LSE TS（编译为 JS），复用 bridge/core（QuickJS 可跑）
    ```
 
+   > **koishi-plugin-kurobot 是独立仓库**（ADR-018）：作为 `kurobot-ws` 的官方参考对端，依赖 `@kurobot/protocol` 发布版本，不在本仓库内开发。
+
 8. **IPC 唯一通道**：Java 薄壳 ↔ Node 子进程走 **stdin/stdout JSON-lines**，零端口零配置。Node 对外 WS 用动态端口（`listen(0)`），Java 侧不碰任何端口。
-9. **不做的事**：自研通用消息语义层（平台渲染交给 koishi-plugin-kurobot）、嵌入式 QQ 协议端（napukettoqq 只做协议端）、无理由的 `any`、Java 侧业务逻辑。
+9. **不做的事**：自研通用消息语义层（平台渲染交给独立仓库 koishi-plugin-kurobot）、嵌入式 QQ 协议端（napukettoqq 只做协议端）、无理由的 `any`、Java 侧业务逻辑。
 
 ## 工作流
 
@@ -56,7 +57,7 @@ pnpm build:jar          # 全链路：TS 构建 → tools/embed 打包 → gradl
 - **一个模块一个模块实现**：开工前先读 `docs/STATUS.md` 与 `docs/architecture.md`、对应包的 `docs/design.md`，按其中的「实现顺序」推进，不跨模块跳跃；每完成一个模块跑一次 `pnpm check`。
 - **core 无全局单例**：logger / connection / state 等都是实例化对象，由 `CoreContext` 持有——多连接多进程场景每份独立，避免状态污染。
 - **新增协议端**（如外部独立协议端）→ 在 `bridge/` 内新增包，复用 core 框架（握手/心跳/请求-响应），**不改 Java、不改 protocol**。
-- **新增平台适配**（Koishi adapter）→ 在 `bridge/koishi` 内扩展，平台渲染（富文本/颜色码/长度收敛）只出现在这里。
+- **新增平台适配**（Koishi adapter）→ 在独立仓库 koishi-plugin-kurobot 内扩展；平台渲染（富文本/颜色码/长度收敛）只出现在那个仓库，本仓库不涉及。
 - **写代码前先更新对应包的 `docs/design.md`**，设计先行。
 
 ## 环境

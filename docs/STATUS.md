@@ -29,11 +29,12 @@
 | 15 | 工具链升级：Node 26 + Java 25（target 21） | ADR-015 |
 | 16 | 运行时不用 Bun | ADR-016 |
 | 17 | 剔除 CI/CD，本地门禁（lefthook + pnpm check） | ADR-017 |
+| 18 | koishi 插件独立仓库（不在本仓库内） | ADR-018 |
 
 ## 待定事项
 
-- 协议 `kurobot-ws` 具体消息 schema 逐字段定稿（`docs/protocol/` 下一步细化，含 zod 源）。
-- `bridge/koishi` 的 Koishi 版本基线（v4 稳定版）与渲染细节。
+- 协议 `kurobot-ws` 具体消息 schema 逐字段定稿（`bridge/protocol` 下一步细化，含 zod 源）。
+- 独立仓库 koishi-plugin-kurobot 的建立时间与 Koishi 版本基线（v4 稳定版）——JE 闭环后启动。
 - `platforms/be` 的启动时间表（JE 闭环后再排）。
 
 ## 下一步实现顺序（推荐）
@@ -47,6 +48,6 @@
    （传输层抽象，先写 Node 实现，QuickJS 适配后续）
 3. platforms/je 薄壳：IPC 客户端 + 进程管理 + 事件/命令/权限桥接
 4. tools/embed 嵌入式打包 + sandbox 沙盒联调
-5. bridge/koishi：Koishi 集成 + 平台渲染
+5. koishi-plugin-kurobot：独立仓库（ADR-018），复用 `@kurobot/protocol` 发布版本
 6. platforms/be：LSE TS 适配（复用 bridge/core）
 ```

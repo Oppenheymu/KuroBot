@@ -5,8 +5,7 @@
 ## 用途（规划）
 
 - 本地起 Paper 服务端（sandbox/je）联调。
-- 本地起 Koishi 实例（sandbox/koishi）连 kurobot。
-- 协议对端模拟（写测试时的最小 WS 客户端）。
+- 协议对端模拟（写测试时的最小 WS 客户端，或独立仓库 koishi-plugin-kurobot 的本地联调）。
 
 ## 说明
 
