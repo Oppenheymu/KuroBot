@@ -1,5 +1,6 @@
 # mise 统一运行时版本（全团队一致）
 # 使用 mise 前先 `mise install` 安装工具
+# 注：gradle 仅用于一次性生成 wrapper（gradle wrapper 命令），日常构建用 platforms/je 的 gradlew.bat
 
 [tools]
 node = "26"

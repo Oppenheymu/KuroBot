@@ -1,0 +1,17 @@
+# KuroBot Paper 插件清单（paper-plugin.yml，Paper 1.19.4+ 格式）
+name: KuroBot
+version: 0.1.0
+main: com.kurobot.KuroBotPlugin
+api-version: "1.21"
+
+# 加载时机：服务端启动时（薄壳拉起 Node 子进程）
+load: STARTUP
+
+# 权限节点（薄壳注册，业务校验在 bridge/core）
+permissions:
+    kurobot.admin:
+        description: KuroBot 管理权限
+        default: op
+    kurobot.relay:
+        description: 消息互通权限（聊天转发）
+        default: true

@@ -1,0 +1,29 @@
+{
+    "name": "@kurobot/bridge-core",
+    "version": "0.0.0",
+    "description": "kurobot 业务核心 + kurobot-ws 协议服务端（平台无关，零 Node API）",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.mts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.mts",
+            "import": "./dist/index.mjs"
+        }
+    },
+    "scripts": {
+        "build": "tsdown"
+    },
+    "dependencies": {
+        "@kurobot/protocol": "workspace:*"
+    },
+    "devDependencies": {
+        "tsdown": "^0.22.14",
+        "vitest": "^4.1.10"
+    },
+    "license": "MIT"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "@kurobot/tools-dev",
+    "version": "0.0.0",
+    "description": "开发沙盒脚本（sandbox 运行产物全部 gitignore）",
+    "type": "module",
+    "private": true,
+    "license": "MIT"
+}

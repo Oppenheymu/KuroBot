@@ -1,0 +1,8 @@
+{
+    "name": "@kurobot/tools-embed",
+    "version": "0.0.0",
+    "description": "嵌入式打包工具：npm tarball + Node 运行时 + bridge/embedded 产物 → platforms/je 资源",
+    "type": "module",
+    "private": true,
+    "license": "MIT"
+}
