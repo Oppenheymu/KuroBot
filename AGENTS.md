@@ -43,6 +43,8 @@ pnpm build:jar          # 全链路：TS 构建 → gradle :paper:shadowJar（�
 
 **构建顺序（硬约束）**：`pnpm -r build`（bridge/embedded 产物）→ 嵌入式打包工具（tools/embed，已删除待重建）拷入 `platforms/je/src/main/resources/embedded/` → `gradle :paper:shadowJar`。本地 `pnpm build:jar` 链式执行（当前 embed 步骤暂缺）。
 
+**多版本策略（ADR-021）**：`:core` 版本无关（零 MC API）；Paper 单 jar 通吃；Fabric/NeoForge 按版本矩阵构建（每 MC 版本一个 jar）；Velocity 单 jar。改版本只重编适配层，不动 `:core` 与 `bridge/core`。
+
 ## 代码风格（biome 已强制，手动也须遵守）
 
 - 缩进 **space+4**，行尾 **LF**，双引号 + 分号 + 尾逗号，行宽 100（对齐 NapukettoQQ 的 biome.json）。

@@ -105,6 +105,7 @@ kurobot/
 │   │   ├── paper/           # Paper 适配（依赖 :core，产出 shadowJar）
 │   │   │   └── src/main/resources/embedded/   # 构建期生成（gitignore）
 │   │   ├── fabric/          # 预留：Fabric mod 适配（依赖 :core）
+│   │   ├── neoforge/        # 预留：NeoForge mod 适配（依赖 :core）
 │   │   └── velocity/        # 预留：Velocity 代理适配（依赖 :core）
 │   └── be/                  # BE 服务端家族（基岩版，ADR-020）
 │       ├── lse/             # LeviLamina LSE 平台适配（TS → JS，复用 bridge/core）

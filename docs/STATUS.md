@@ -32,13 +32,14 @@
 | 18 | koishi 插件独立仓库（不在本仓库内） | ADR-018 |
 | 19 | platforms/je 多模块（:core + paper + 预留 fabric/velocity） | ADR-019 |
 | 20 | BE 服务端家族：LSE(TS) + Endstone(C++ 薄壳)，剔 Nukkit | ADR-020 |
+| 21 | je 多版本策略：:core 版本无关，fabric/neoforge 按版本矩阵构建 | ADR-021 |
 
 ## 待定事项
 
 - 协议 `kurobot-ws` 具体消息 schema 逐字段定稿（`bridge/protocol` 下一步细化，含 zod 源）。
 - 独立仓库 koishi-plugin-kurobot 的建立时间与 Koishi 版本基线（v4 稳定版）——JE 闭环后启动。
 - `platforms/be` 家族骨架已建（2026-08-11）：`lse/`（TS）+ `endstone/`（C++ 薄壳预留），实现排期在 JE 闭环后。
-- `platforms/je` 的 fabric/velocity 模块为预留骨架，接入对应服务端 API 后启用。
+- `platforms/je` 的 fabric/neoforge/velocity 模块为预留骨架，接入对应服务端 API 后启用。
 
 ## 下一步实现顺序（推荐）
 

@@ -126,3 +126,14 @@
 - **理由**：Endstone 生态存在且有价值（C++ 技术栈匹配开发者能力）；薄壳模式（ADR-005 同款）让 C++/Java 薄壳共享同一 `bridge/core` 业务核心，无需为各服务端重复实现业务。
 - **连带**：`platforms/` 划分标准 = 技术栈 + 客户端（je=Java 服务端 / be=BE 服务端家族，家族内按具体平台分）。
 - **回退条件**：如 Endstone 生态萎缩，可删除 `endstone/` 骨架（成本为零）。
+
+## ADR-021 JE 多版本兼容策略（2026-08-11）
+
+- **背景**：MC Java 服务端版本众多，Paper/Fabric/NeoForge 的版本兼容机制差异巨大。
+- **结论**：
+  - **`:core` 完全版本无关**（零 MC API）——多版本兼容的护城河，改 MC 版本时 `:core` 一行不动，只重编适配层。
+  - **Paper/Bukkit 系**：单 jar 通吃（API 向后兼容，`api-version` 声明最低版本，低版本编译高版本运行）。
+  - **Fabric/NeoForge（mod 加载器）**：每个 MC 版本一个独立构建（**版本矩阵**），`fabric.mod.json` / `mods.toml` 声明版本范围，按需生成 `kurobot-<mcver>.jar`。
+  - **Velocity（代理）**：API 稳定，单 jar 通吃 3.x。
+- **理由**：薄壳架构（ADR-005）天然支持——适配层绑定版本，业务核心（bridge/core + :core）版本无关，避免为每个版本重复实现业务。
+- **实施**：2026-08-11 新增 `neoforge/` 预留模块（ModDevGradle，尚未接入）。
