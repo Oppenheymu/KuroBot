@@ -40,10 +40,11 @@
         "allowImportingTsExtensions": true,
         "erasableSyntaxOnly": true
     },
-    "exclude": [
-        "node_modules",
-        "**/dist",
-        // platforms/be/lse 是 LSE（QuickJS）环境，用自有 tsconfig（types: @levimc-lse/types），不走根 tsc
-        "platforms/be/lse"
+    // 根检查配置（pnpm check 的 tsc --noEmit 用）：显式白名单，只查 TS 包源码。
+    // 特殊环境（如 platforms/be/lse 的 QuickJS、未来的 C++ 薄壳）用各自 tsconfig，不进此范围。
+    "include": [
+        "bridge/*/src",
+        "tools/*",
+        "scripts/*"
     ]
 }

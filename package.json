@@ -9,9 +9,9 @@
     "keywords": [
         "minecraft",
         "paper",
-        "koishi",
         "websocket",
-        "napukettoqq"
+        "napukettoqq",
+        "群服互通"
     ],
     "scripts": {
         "build": "pnpm -r build",
@@ -22,7 +22,7 @@
         "test": "vitest run",
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
-        "build:jar": "pnpm -r build && node tools/embed/run.mjs && cd platforms/je && ./gradlew shadowJar"
+        "build:jar": "pnpm -r build && node tools/embed/run.mjs && cd platforms/je && ./gradlew :paper:shadowJar"
     },
     "devEngines": {
         "packageManager": {
@@ -30,6 +30,10 @@
             "version": "11.6.0",
             "onFail": "download"
         }
+    },
+    "engines": {
+        "node": ">=26",
+        "pnpm": ">=11"
     },
     "devDependencies": {
         "@biomejs/biome": "^2.5.6",
