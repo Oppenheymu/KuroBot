@@ -30,14 +30,15 @@
 | 16 | 运行时不用 Bun | ADR-016 |
 | 17 | 剔除 CI/CD，本地门禁（lefthook + pnpm check） | ADR-017 |
 | 18 | koishi 插件独立仓库（不在本仓库内） | ADR-018 |
-| 19 | platforms/je 多模块（:core + 各服务端模块，含 fabric/velocity 预留） | ADR-019 |
+| 19 | platforms/je 多模块（:core + paper + 预留 fabric/velocity） | ADR-019 |
+| 20 | BE 服务端家族：LSE(TS) + Endstone(C++ 薄壳)，剔 Nukkit | ADR-020 |
 
 ## 待定事项
 
 - 协议 `kurobot-ws` 具体消息 schema 逐字段定稿（`bridge/protocol` 下一步细化，含 zod 源）。
 - 独立仓库 koishi-plugin-kurobot 的建立时间与 Koishi 版本基线（v4 稳定版）——JE 闭环后启动。
-- `platforms/be`（LSE）骨架已建（2026-08-11），实现排期在 JE 闭环后。
-- `platforms/je` 的 fabric/velocity/nukkit 模块为预留骨架，接入对应服务端 API 后启用。
+- `platforms/be` 家族骨架已建（2026-08-11）：`lse/`（TS）+ `endstone/`（C++ 薄壳预留），实现排期在 JE 闭环后。
+- `platforms/je` 的 fabric/velocity 模块为预留骨架，接入对应服务端 API 后启用。
 
 ## 下一步实现顺序（推荐）
 
@@ -51,5 +52,5 @@
 3. platforms/je 薄壳：IPC 客户端 + 进程管理 + 事件/命令/权限桥接
 4. tools/embed 嵌入式打包 + sandbox 沙盒联调
 5. koishi-plugin-kurobot：独立仓库（ADR-018），复用 `@kurobot/protocol` 发布版本
-6. platforms/be：LSE TS 适配（复用 bridge/core）
+6. platforms/be：lse（LSE TS 适配，复用 bridge/core）→ endstone（C++ 薄壳）另行评估
 ```

@@ -43,7 +43,7 @@
     "exclude": [
         "node_modules",
         "**/dist",
-        // platforms/be 是 LSE（QuickJS）环境，用自有 tsconfig（types: @levimc-lse/types），不走根 tsc
-        "platforms/be"
+        // platforms/be/lse 是 LSE（QuickJS）环境，用自有 tsconfig（types: @levimc-lse/types），不走根 tsc
+        "platforms/be/lse"
     ]
 }

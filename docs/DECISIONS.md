@@ -115,3 +115,14 @@
 - **结论**：`platforms/je` 改为 **Gradle 多模块**：`:core`（纯逻辑，零 Bukkit API，可独立测试）+ `:paper`（Paper 适配，依赖 `:core`）+ 预留服务端模块骨架（`fabric`/`velocity` 等）。**一个服务端 = 一个模块，共享 `:core`**，命名不带 kurobot 前缀（目录已处于 kurobot 项目内，冗余）。
 - **理由**：未来新增服务端只是加模块，不动 `:core`；`:core` 平台无关可独立测试（对齐 TS 侧 `bridge/core` 平台无关的设计 ADR-007）；共享薄壳核心避免多服务端重复实现。
 - **实施**：2026-08-11 完成 `:core` + `:paper` 拆分，shadowJar 产物 `kurobot-0.1.0.jar`。
+
+## ADR-020 BE 服务端家族：LSE + Endstone C++ 薄壳，剔除 Nukkit（2026-08-11）
+
+- **背景**：2026 年 BE 服务端生态实况——LeviLamina（LSE 脚本）是主流插件路线，Endstone（C++/Python）是另一支活跃生态；Nukkit 确认非主流（Wiki 插件加载器列表无它）。开发者会 C++。
+- **结论**：
+  - `platforms/be` 重组为 **BE 服务端家族**：`lse/`（LeviLamina，TS，维持 ADR-012）+ `endstone/`（Endstone，**C++ 薄壳**，预留骨架）。
+  - **Endstone 走 C++ 薄壳**（非 Python）：C++ 只做事件桥接 + 内嵌 Node 子进程管理 + JSON-lines IPC，业务仍走 `bridge/core`——与 Java 薄壳完全同构，复用全部业务。
+  - **剔除 Nukkit 模块**（非主流，避免误导）。
+- **理由**：Endstone 生态存在且有价值（C++ 技术栈匹配开发者能力）；薄壳模式（ADR-005 同款）让 C++/Java 薄壳共享同一 `bridge/core` 业务核心，无需为各服务端重复实现业务。
+- **连带**：`platforms/` 划分标准 = 技术栈 + 客户端（je=Java 服务端 / be=BE 服务端家族，家族内按具体平台分）。
+- **回退条件**：如 Endstone 生态萎缩，可删除 `endstone/` 骨架（成本为零）。
