@@ -29,7 +29,7 @@ kurobot（Paper JAR，Java 薄壳）
 │   ├── core/         # 业务核心 + 协议服务端（TS，平台无关）
 │   └── embedded/     # 嵌入式瘦身对端（打进 JAR，无 Koishi）
 ├── docs/             # 架构书 / 决策记录 / 现状 / 协议草案
-└── tools/            # 协议工具 / 嵌入式打包 / 沙盒脚本
+└── sandbox/          # 运行产物（gitignore）
 
 > koishi-plugin-kurobot（external 官方对端）在**独立仓库**开发（ADR-018）。
 ```

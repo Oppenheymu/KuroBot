@@ -9,7 +9,6 @@
         "ignoreUnknown": false,
         "includes": [
             "bridge/**/src/**/*.{ts,tsx,mts,cts,js,mjs,cjs,jsx}",
-            "tools/**/*.{ts,tsx,mts,cts,js,mjs,cjs,jsx}",
             "platforms/be/**/*.{ts,tsx,mts,cts,js,mjs,cjs,jsx}",
             "scripts/**/*.{ts,js,mjs}"
         ]
@@ -102,7 +101,7 @@
     },
     "overrides": [
         {
-            "includes": ["tools/**", "scripts/**"],
+            "includes": ["scripts/**"],
             "linter": {
                 "rules": {
                     "suspicious": {

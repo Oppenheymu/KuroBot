@@ -38,10 +38,10 @@ pnpm fix                # biome 自动修复 + tsc
 pnpm test               # vitest run（TS 侧）
 pnpm -r build           # TS 全量构建（tsdown / esbuild）
 ./gradlew build         # Java 薄壳（platforms/je）
-pnpm build:jar          # 全链路：TS 构建 → tools/embed 打包 → gradle shadowJar
+pnpm build:jar          # 全链路：TS 构建 → gradle :paper:shadowJar（嵌入式打包待重建）
 ```
 
-**构建顺序（硬约束）**：`pnpm -r build`（bridge/embedded 产物）→ `tools/embed` 拷入 `platforms/je/src/main/resources/embedded/` → `gradle shadowJar`。本地 `pnpm build:jar` 链式执行。
+**构建顺序（硬约束）**：`pnpm -r build`（bridge/embedded 产物）→ 嵌入式打包工具（tools/embed，已删除待重建）拷入 `platforms/je/src/main/resources/embedded/` → `gradle :paper:shadowJar`。本地 `pnpm build:jar` 链式执行（当前 embed 步骤暂缺）。
 
 ## 代码风格（biome 已强制，手动也须遵守）
 

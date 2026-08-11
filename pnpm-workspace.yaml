@@ -1,6 +1,5 @@
 packages:
   - "bridge/*"
-  - "tools/*"
   - "platforms/be/lse"
 # pnpm 11 构建脚本审批：允许这些依赖运行 postinstall（esbuild/tsdown/lefthook 需要）
 allowBuilds:

@@ -8,7 +8,7 @@
 
 - 复用 `bridge/core` 框架，作为对端连接 kurobot 的 WS 服务端。
 - 内嵌 **napukettoqq** 协议端（QQ 连接，控制台扫码）。
-- **无 Koishi**：esbuild 单文件产物，随 JAR 分发（`tools/embed` 打包）。
+- **无 Koishi**：esbuild 单文件产物，随 JAR 分发（嵌入式打包工具打包，待重建）。
 
 ## 与架构的关系（ADR-005 / ADR-006）
 

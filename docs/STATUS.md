@@ -50,7 +50,7 @@
 2. bridge/core 最小闭环：connect → hello 握手 → 心跳 → chat 收发 → 重连
    （传输层抽象，先写 Node 实现，QuickJS 适配后续）
 3. platforms/je 薄壳：IPC 客户端 + 进程管理 + 事件/命令/权限桥接
-4. tools/embed 嵌入式打包 + sandbox 沙盒联调
+4. 嵌入式打包工具（tools/embed 已删，重建）+ sandbox 沙盒联调
 5. koishi-plugin-kurobot：独立仓库（ADR-018），复用 `@kurobot/protocol` 发布版本
 6. platforms/be：lse（LSE TS 适配，复用 bridge/core）→ endstone（C++ 薄壳）另行评估
 ```

@@ -10,7 +10,6 @@ export default defineConfig({
     test: {
         include: [
             "bridge/*/src/**/*.test.ts",
-            "tools/**/*.test.ts",
             // 工具链脚本也纳入单测
             "scripts/**/*.test.ts",
         ],

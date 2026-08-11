@@ -287,10 +287,6 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
 
-  tools/dev: {}
-
-  tools/embed: {}
-
 packages:
 
   '@babel/helper-string-parser@7.29.7':

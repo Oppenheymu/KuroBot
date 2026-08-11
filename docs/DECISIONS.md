@@ -50,7 +50,7 @@
 ## ADR-009 多语言单仓不引入 nx/turbo（2026-08-10）
 
 - **结论**：pnpm workspace 管 TS、Gradle 独立构建、根 `package.json` 只做编排；不引入 nx/turbo。
-- **理由**：仅 5-6 个 TS 包，turbo 缓存收益是负资产；唯一跨语言桥 `tools/embed` 用构建顺序硬约束保证。
+- **理由**：仅 5-6 个 TS 包，turbo 缓存收益是负资产；唯一跨语言桥 `tools/embed`（已删待重建）用构建顺序硬约束保证。
 
 ## ADR-010 Java↔Node IPC 用 stdin/stdout JSON-lines（2026-08-10）
 
@@ -99,7 +99,7 @@
 - **背景**：开发者从未使用过 CI/CD；单人开发、本地命令（`pnpm check` / `pnpm test`）与 CI 内容完全一致。
 - **结论**：**删除 `.github/workflows/ci.yml`**，暂不引入 CI/CD；质量门禁由本地 lefthook（pre-commit）+ `pnpm check` 承担。
 - **理由**：单人单机开发，CI 只是"多一道自动化保险"；协议防漂移门禁（ADR-008 的 lint 规则）本地同样生效。成本不为零（写一次不用管，但出了故障要排），收益当前不明显。
-- **回退条件**：多人协作 / 开源贡献者介入 / 需要干净机器构建验证时，按 ADR-001 的构建顺序恢复（TS 构建 → tools/embed → gradle shadowJar）。
+- **回退条件**：多人协作 / 开源贡献者介入 / 需要干净机器构建验证时，按 ADR-001 的构建顺序恢复（TS 构建 → 嵌入式打包 → gradle :paper:shadowJar）。
 
 ## ADR-018 koishi 插件独立仓库（2026-08-11）
 

@@ -19,7 +19,7 @@ spotless {
     }
 }
 
-// 全链路构建（AGENTS.md 构建顺序）：TS 构建 → tools/embed → shadowJar
+// 全链路构建（AGENTS.md 构建顺序）：TS 构建 → 嵌入式打包（待重建）→ shadowJar
 tasks.shadowJar {
     archiveFileName.set("kurobot-${project.version}.jar")
     archiveClassifier.set("")
