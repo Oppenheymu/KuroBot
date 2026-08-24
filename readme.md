@@ -1,10 +1,5 @@
-#还没写好是个空壳
+# 还没写好是个空壳
 
-
-
-
-
-# KuroBot
 
 MC 服务器 ↔ 社交平台群服互通插件。丢进 `plugins/` 的 Paper JAR，通过 WebSocket 与机器人框架通信，实现「游戏 ↔ 社交平台」双向互通（QQ / Telegram / Discord / WhatsApp…）。
 
